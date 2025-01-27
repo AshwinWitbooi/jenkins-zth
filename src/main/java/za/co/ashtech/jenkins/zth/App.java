@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import za.co.ashtech.jenkins.zth.db.entities.Author;
 import za.co.ashtech.jenkins.zth.db.entities.Book;
@@ -43,25 +44,26 @@ public class App
     		
     		transaction = session.beginTransaction();
     		System.out.println("*****	Begin transaction  *****");
-    		
-    		Author author = new Author("Joshua Bloch");
-    		
-    		session.save(author);
-        	Set<Author> authors1 = new HashSet<Author>();
-    		authors1.add(author);
-    		
-    		session.save(new Book("Bil", authors1));
-    		
-//            getBooks().forEach(book -> {
-//                // Save the person object to the database
-//                session.save(book);
-//                System.out.println("Book saved: " + book.toString());
-//            });
+    		    		
+            getBooks().forEach(book -> {
+                // Save the person object to the database
+                session.save(book);
+                System.out.println("Book saved: " + book.toString());
+            });
             
             transaction.commit();
             
+            int recs = session.createQuery("FROM Book").getResultList().size();
+           if(recs > 0) {
+        	   System.out.println("Book records found:"+recs);
+           }else {
+        	   System.out.println("NO Book records found");
+           }            
+            
     		session.close();
     		System.out.println("*****	Close session  *****");
+    		sessionFactory.close();
+    		System.out.println("*****	Close session factory  *****");
 
         	
         }catch (Exception e) {
@@ -98,17 +100,15 @@ public class App
     		authors7.add(new Author("Jennifer Petoff"));
     	
     	System.out.println("Books set up......");
-//		return Arrays.asList(
-//    							new Book("Effective Java (3rd Edition)", authors1 ),
-//    							new Book("Java: The Complete Reference (11th Edition)", authors2 ),
-//    							new Book("Head First Java (2nd Edition)", authors3 ),
-//    							new Book("Clean Code: A Handbook of Agile Software Craftsmanship", authors4 ),
-//    							new Book("Java Concurrency in Practice", authors5 ),
-//    							new Book("The DevOps Handbook: How to Create World-Class Agility, Reliability, & Security in Technology Organizations", authors6 ),
-//    							new Book("Site Reliability Engineering: How Google Runs Production Systems", authors7 )
-//    						);
-    	
-    	return null;
+		return Arrays.asList(
+    							new Book("Effective Java (3rd Edition)", authors1 ),
+    							new Book("Java: The Complete Reference (11th Edition)", authors2 ),
+    							new Book("Head First Java (2nd Edition)", authors3 ),
+    							new Book("Clean Code: A Handbook of Agile Software Craftsmanship", authors4 ),
+    							new Book("Java Concurrency in Practice", authors5 ),
+    							new Book("The DevOps Handbook: How to Create World-Class Agility, Reliability, & Security in Technology Organizations", authors6 ),
+    							new Book("Site Reliability Engineering: How Google Runs Production Systems", authors7 )
+    						);
 
     }
 
