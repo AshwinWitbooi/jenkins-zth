@@ -1,0 +1,46 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.log
+
+# Eclipse/STS
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+target/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Eclipse Launchers
+launch/
+
+# Spring Boot DevTools
+spring-boot-devtools.properties
+
+# Generated files
+generated/
+
+# Custom
+*.log
+*.bak
